@@ -1,0 +1,7 @@
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+export default function TeaserScene({ wish, onNext }) {
+  const [step, setStep] = useState('ask')
+  return <motion.div className="scene teaser-scene" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><AnimatePresence mode="wait">{step === 'ask' ? <motion.div key="ask" className="teaser-card" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}><h1>{wish.teaser.question}</h1><motion.img className="bubu-dudu-art bubu-dudu-art--yes" src="/assets/bubu-dudu-yes.png" alt="Bubu and Dudu with a gift" animate={{ y: [0, -7, 0], rotate: [0, 1, 0] }} transition={{ duration: 2.2, repeat: Infinity }}/><div className="teaser-actions"><button onClick={onNext}>YES</button><button onClick={() => setStep('nudge')}>NO</button></div></motion.div> : <motion.div key="no" className="teaser-card" initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}><h1>{wish.teaser.nudgeText}</h1><motion.img className="bubu-dudu-art bubu-dudu-art--no" src="/assets/bubu-dudu-no.png" alt="Bubu comforting Dudu" animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}/><button className="try-again" onClick={() => setStep('ask')}>{wish.teaser.nudgeButton}</button></motion.div>}</AnimatePresence></motion.div>
+}
